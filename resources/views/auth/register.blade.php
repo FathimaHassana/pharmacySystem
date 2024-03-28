@@ -52,7 +52,7 @@
 
                         <input id="user_type" type="text"
                                class="form-input w-full @error('user_type') border-red-500 @enderror" name="user_type"
-                               required autocomplete="">
+                               required autocomplete="user_type">
 
                         @error('user_type')
                         <p class="text-red-500 text-xs italic mt-4">

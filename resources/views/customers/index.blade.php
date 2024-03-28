@@ -21,6 +21,7 @@
                 <td>ID</td>
                 <td>Name</td>
                 <td>Email</td>
+                <td>User Type</td>
                 <td colspan="2">Action</td>
             </tr>
             </thead>
@@ -30,6 +31,7 @@
                     <td>{{$customer->id}}</td>
                     <td>{{$customer->name}}</td>
                     <td>{{$customer->email}}</td>
+                    <td>{{$customer->user_type}}</td>
                     <td><a href="{{ route('customers.edit', $customer->id)}}" class="btn btn-primary">Edit</a></td>
                     <td>
                         <form action="{{ route('customers.destroy', $customer->id)}}" method="post">

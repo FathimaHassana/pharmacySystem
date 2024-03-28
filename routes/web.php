@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,30 +21,31 @@ Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//Route::group(['middleware' => ['user_type:owner']], function () {
+
+
 //Medical inventories route
-Route::get('/inventories', '\App\Http\Controllers\InventoryController@index')->name('inventories.index');
-Route::get('/inventories/create', '\App\Http\Controllers\InventoryController@create')->name('inventories.create');
-Route::post('/inventories', '\App\Http\Controllers\InventoryController@store')->name('inventories.store');
-Route::get('/inventories/{inventory}/edit', '\App\Http\Controllers\InventoryController@edit')->name('inventories.edit');
-Route::patch('/inventories/{inventory}', '\App\Http\Controllers\InventoryController@update')->name('inventories.update');
-Route::delete('/inventories/{inventory}', '\App\Http\Controllers\InventoryController@destroy')->name('inventories.destroy');
+    Route::get('/inventories', '\App\Http\Controllers\InventoryController@index')->name('inventories.index');
+    Route::get('/inventories/create', '\App\Http\Controllers\InventoryController@create')->name('inventories.create');
+    Route::post('/inventories', '\App\Http\Controllers\InventoryController@store')->name('inventories.store');
+    Route::get('/inventories/{inventory}/edit', '\App\Http\Controllers\InventoryController@edit')->name('inventories.edit');
+    Route::patch('/inventories/{inventory}', '\App\Http\Controllers\InventoryController@update')->name('inventories.update');
+    Route::delete('/inventories/{inventory}', '\App\Http\Controllers\InventoryController@destroy')->name('inventories.destroy');
 
 
 //Customers route
-Route::get('/customers', '\App\Http\Controllers\CustomerController@index')->name('customers.index');
-Route::get('/customers/create', '\App\Http\Controllers\CustomerController@create')->name('customers.create');
-Route::post('/customers', '\App\Http\Controllers\CustomerController@store')->name('customers.store');
-Route::get('/customers/{customer}/edit', '\App\Http\Controllers\CustomerController@edit')->name('customers.edit');
-Route::patch('/customers/{customer}', '\App\Http\Controllers\CustomerController@update')->name('customers.update');
-Route::delete('/customers/{customer}', '\App\Http\Controllers\CustomerController@destroy')->name('customers.destroy');
+    Route::get('/customers', '\App\Http\Controllers\CustomerController@index')->name('customers.index');
+    Route::get('/customers/create', '\App\Http\Controllers\CustomerController@create')->name('customers.create');
+    Route::post('/customers', '\App\Http\Controllers\CustomerController@store')->name('customers.store');
+    Route::get('/customers/{customer}/edit', '\App\Http\Controllers\CustomerController@edit')->name('customers.edit');
+    Route::patch('/customers/{customer}', '\App\Http\Controllers\CustomerController@update')->name('customers.update');
+    Route::delete('/customers/{customer}', '\App\Http\Controllers\CustomerController@destroy')->name('customers.destroy');
 
 
-
-Auth::routes();
-
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//});
 
 Auth::routes();
+
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

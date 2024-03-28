@@ -17,8 +17,8 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name'=>'hassana',
             'email'=>'hassana@example.com',
+            'user_type'=>'owner',
             'password' =>'example123',
-            'user_type'=>'owner'
         ]);
     }
 }

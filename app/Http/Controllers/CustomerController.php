@@ -16,7 +16,8 @@ class CustomerController extends Controller
     {
        // $roles = Role::select(['id', 'name'])->get()->pluck('id', 'name')->toArray();
 
-        $customers = User::all();
+        $customers = User::all()->where('user_type','=','customer');
+        //dd($customers);
 
         return view('customers.index', compact('customers'));
 
@@ -32,7 +33,9 @@ class CustomerController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
+            'user_type'=>'required',
             'password' => 'required',
+
         ]);
         $input = $request->all();
 
@@ -62,6 +65,7 @@ class CustomerController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
+            'user_type' =>'required',
             'password' => 'required',
         ]);
 
@@ -77,11 +81,8 @@ class CustomerController extends Controller
         // delete
         $customer = User::find($id);
 
-        if(Auth::user()->where('user_type','=','owner')){
             $customer->delete();
             Session::flash('message', 'Successfully deleted the customer!');
-
-        }
 
         // redirect
         return Redirect::to('customers');

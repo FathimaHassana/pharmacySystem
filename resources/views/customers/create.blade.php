@@ -33,6 +33,10 @@
                     <input type="email" class="form-control" name="email"/>
                 </div>
                 <div class="form-group">
+                    <label for="user_type">User Type :</label>
+                    <input type="text" class="form-control" name="user_type"/>
+                </div>
+                <div class="form-group">
                     <label for="password">Password :</label>
                     <input type="text" class="form-control" name="password"/>
                 </div>
