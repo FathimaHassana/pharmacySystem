@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class CustomerController extends Controller
 {
     public function index()
     {
+       // $roles = Role::select(['id', 'name'])->get()->pluck('id', 'name')->toArray();
+
         $customers = User::all();
 
         return view('customers.index', compact('customers'));
@@ -53,44 +57,33 @@ class CustomerController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
-        $rules = array(
+        $request->validate([
             'name' => 'required',
-            'email' => 'description',
-            'password' => 'description'
-        );
-        $validator = Validator::make($request->all(), $rules);
+            'email' => 'required',
+            'password' => 'required',
+        ]);
 
-        // process the login
-        if ($validator->fails()) {
-            return Redirect::to('customers/' . $id . '/edit')
-                ->withErrors($validator)
-                ->withInput($request->except('password'));
-        } else {
-            // store
-            $customer = User::find($id);
-            $customer->name = $request->get('name');
-            $customer->email = $request->get('email');
-            $customer->password = $request->get('password');
-            $customer->save();
+        $user->update($request->all());
 
-            // redirect
-            Session::flash('message', 'Successfully updated customer!');
-            return Redirect::to('customers');
-        }
+        return redirect()->route('customers.index')
+            ->with('success','Customer updated successfully');
+
     }
 
     public function destroy($id)
     {
         // delete
         $customer = User::find($id);
-        $customer->delete();
+
+        if(Auth::user()->where('user_type','=','owner')){
+            $customer->delete();
+            Session::flash('message', 'Successfully deleted the customer!');
+
+        }
 
         // redirect
-        Session::flash('message', 'Successfully deleted the customer!');
         return Redirect::to('customers');
     }
 }
